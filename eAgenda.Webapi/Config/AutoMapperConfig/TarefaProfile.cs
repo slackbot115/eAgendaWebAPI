@@ -9,31 +9,25 @@ namespace eAgenda.Webapi.Config.AutoMapperConfig
     {
         public TarefaProfile()
         {
-            CreateMap<Tarefa, ListarTarefaViewModel>()
-                    .ForMember(destino => destino.Prioridade, opt => opt.MapFrom(origem => origem.Prioridade.GetDescription()))
-                    .ForMember(destino => destino.Situacao, opt => opt.MapFrom(origem => origem.PercentualConcluido == 100 ? "Concluído" : "Pendente"));
+            ConverterDeEntidadeParaViewModel();
+            ConverterDeViewModelParaEntidade();
+        }
 
-            CreateMap<Tarefa, VisualizarTarefaViewModel>()
-                .ForMember(destino => destino.Prioridade, opt => opt.MapFrom(origem => origem.Prioridade.GetDescription()))
-                .ForMember(destino => destino.Situacao, opt => opt.MapFrom(origem => origem.PercentualConcluido == 100 ? "Concluído" : "Pendente"))
-                .ForMember(destino => destino.QuantidadeItens, opt => opt.MapFrom(origem => origem.Itens.Count));
-
-            CreateMap<ItemTarefa, VisualizarItemTarefaViewModel>()
-                .ForMember(destino => destino.Situacao, opt => opt.MapFrom(origem => origem.Concluido ? "Concluído" : "Pendente"));
-
+        private void ConverterDeViewModelParaEntidade()
+        {
             CreateMap<InserirTarefaViewModel, Tarefa>()
-                .ForMember(destino => destino.Itens, opt => opt.Ignore())
-                .AfterMap((viewModel, tarefa) =>
-                {
-                    foreach (var itemVM in viewModel.Itens)
-                    {
-                        var item = new ItemTarefa();
+                            .ForMember(destino => destino.Itens, opt => opt.Ignore())
+                            .AfterMap((viewModel, tarefa) =>
+                            {
+                                foreach (var itemVM in viewModel.Itens)
+                                {
+                                    var item = new ItemTarefa();
 
-                        item.Titulo = itemVM.Titulo;
+                                    item.Titulo = itemVM.Titulo;
 
-                        tarefa.AdicionarItem(item);
-                    }
-                });
+                                    tarefa.AdicionarItem(item);
+                                }
+                            });
 
             CreateMap<EditarTarefaViewModel, Tarefa>()
                 .ForMember(destino => destino.Itens, opt => opt.Ignore())
@@ -61,6 +55,21 @@ namespace eAgenda.Webapi.Config.AutoMapperConfig
                         }
                     }
                 });
+        }
+
+        private void ConverterDeEntidadeParaViewModel()
+        {
+            CreateMap<Tarefa, ListarTarefaViewModel>()
+                                .ForMember(destino => destino.Prioridade, opt => opt.MapFrom(origem => origem.Prioridade.GetDescription()))
+                                .ForMember(destino => destino.Situacao, opt => opt.MapFrom(origem => origem.PercentualConcluido == 100 ? "Concluído" : "Pendente"));
+
+            CreateMap<Tarefa, VisualizarTarefaViewModel>()
+                .ForMember(destino => destino.Prioridade, opt => opt.MapFrom(origem => origem.Prioridade.GetDescription()))
+                .ForMember(destino => destino.Situacao, opt => opt.MapFrom(origem => origem.PercentualConcluido == 100 ? "Concluído" : "Pendente"))
+                .ForMember(destino => destino.QuantidadeItens, opt => opt.MapFrom(origem => origem.Itens.Count));
+
+            CreateMap<ItemTarefa, VisualizarItemTarefaViewModel>()
+                .ForMember(destino => destino.Situacao, opt => opt.MapFrom(origem => origem.Concluido ? "Concluído" : "Pendente"));
         }
     }
 }
