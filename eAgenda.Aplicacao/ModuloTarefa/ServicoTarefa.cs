@@ -165,7 +165,7 @@ namespace eAgenda.Aplicacao.ModuloTarefa
                 {
                     Log.Logger.Warning("Tarefa {TarefaId} não encontrada", id);
 
-                    return Result.Fail("Tarefa não encontrada");
+                    return Result.Fail($"Tarefa {id} não encontrada");
                 }
 
                 Log.Logger.Information("Tarefa {TarefaId} selecionada com sucesso", id);

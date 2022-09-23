@@ -19,6 +19,9 @@ namespace eAgenda.Webapi.Config.AutoMapperConfig
                             .ForMember(destino => destino.Itens, opt => opt.Ignore())
                             .AfterMap((viewModel, tarefa) =>
                             {
+                                if (viewModel.Itens == null)
+                                    return;
+
                                 foreach (var itemVM in viewModel.Itens)
                                 {
                                     var item = new ItemTarefa();
