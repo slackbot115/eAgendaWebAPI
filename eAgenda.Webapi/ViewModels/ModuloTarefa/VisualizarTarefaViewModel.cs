@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace eAgenda.Webapi.ViewModels
+namespace eAgenda.Webapi.ViewModels.ModuloTarefa
 {
     public class VisualizarTarefaViewModel
     {

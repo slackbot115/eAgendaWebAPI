@@ -17,6 +17,15 @@ namespace eAgenda.Webapi.Controllers
             });
         }
 
+        protected ActionResult BadRequest<T>(Result<T> registroResult)
+        {
+            return StatusCode(300, new
+            {
+                sucesso = false,
+                erros = registroResult.Errors.Select(x => x.Message)
+            });
+        }
+
         protected ActionResult NotFound<T>(Result<T> tarefaResult)
         {
             return StatusCode(404, new

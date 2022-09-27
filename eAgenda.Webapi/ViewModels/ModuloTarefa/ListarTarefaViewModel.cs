@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eAgenda.Webapi.ViewModels
+namespace eAgenda.Webapi.ViewModels.ModuloTarefa
 {
     public class ListarTarefaViewModel
     {
