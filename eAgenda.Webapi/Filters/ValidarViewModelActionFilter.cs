@@ -26,7 +26,6 @@ namespace eAgenda.Webapi.Filters
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            throw new System.NotImplementedException();
         }
     }
 }

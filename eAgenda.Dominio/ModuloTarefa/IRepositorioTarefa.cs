@@ -5,6 +5,6 @@ namespace eAgenda.Dominio.ModuloTarefa
 {
     public interface IRepositorioTarefa : IRepositorio<Tarefa>
     {
-        List<Tarefa> SelecionarTodos(StatusTarefaEnum status);
+        List<Tarefa> SelecionarTodos(StatusTarefaEnum status, System.Guid guid);
     }
 }
